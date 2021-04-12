@@ -1,3 +1,5 @@
+require('./database')
+require('dotenv').config();
 const { Client, MessageEmbed } = require('discord.js');
 const client = new Client();
 const fetch = require("node-fetch");
@@ -30,7 +32,8 @@ client.on('message', msg => {
         msg.channel.send(embed);
       }
     if(comand_v1 == `${prefix}info`){
-        console.log("\`"+msg+"\`");
+        const msgData = Object.entries(msg)
+        msg.channel.send("\`"+msgData+"\`");
         console.log(msg);
     }
     if (comand_v1 === `${prefix}anime`) {

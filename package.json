@@ -18,6 +18,9 @@
   "homepage": "https://github.com/volker69/discordBot#readme",
   "dependencies": {
     "discord.js": "^12.5.3",
-    "node-fetch": "^2.6.1"
+    "dotenv": "^8.2.0",
+    "mongoose": "^5.12.3",
+    "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.7"
   }
 }
