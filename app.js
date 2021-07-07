@@ -5,6 +5,8 @@ const client = new Client();
 const fetch = require("node-fetch");
 const config = require('./config.json');
 const helps = require('./module')
+const mongoose = require('mongoose')
+const Usuario = require('./models/User')
 
 let num = helps.random_num;
 console.log(num);
@@ -12,29 +14,33 @@ let urlapi  = 'https://danbooru.donmai.us/posts/';
 let prefix  = config.prefix;
 
 
+
+function CountW() {
+    console.log('hola');
+}
 client.on('ready', () => {
+    CountW()
     console.log(`EL BOT  ${client.user.tag}! esta corriendo`);
 });
 
 client.on('message', msg => {
-    console.log(msg.content);
     let comand = msg.content.split(" ");
     let comand_v1 = comand[0];
     let comand_v2 = comand[1];
-    if (msg.content === 'how to embed') {
-        // We can create embeds using the MessageEmbed constructor
-        // Read more about all that you can do with the constructor
-        // over at https://discord.js.org/#/docs/main/master/class/MessageEmbed
-        const embed = new MessageEmbed()
-            .setTitle(`title`)
-            .setColor('#A7B960')
-            .setDescription(`content`);
-        msg.channel.send(embed);
-      }
+    if (msg.content === `${prefix}register`) {
+        let user = new Usuario()
+        user.name = msg.author.username,
+        user.avatar = msg.author.avatar,
+        user.server_id = msg.guild.id,
+        user.server_name = msg.guild.name
+
+        user.save()
+    }
+
     if(comand_v1 == `${prefix}info`){
         const msgData = Object.entries(msg)
         msg.channel.send("\`"+msgData+"\`");
-        console.log(msg);
+        console.log(msg.guild.id);
     }
     if (comand_v1 === `${prefix}anime`) {
         if(!isNaN(comand_v2) || comand_v2 == 'random'){
